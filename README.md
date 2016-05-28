@@ -62,7 +62,7 @@ I've based my solution to transpile to TypeScript on an article I found [here](h
     When you run your app, in console you should see the logger prints `Found TypeScript hack` for TypeScript projects and `Just another ES5 project` for all other projects (supporting all our "old" projects).
     
 
-  4. In the same file, further down the code you will find the following line:
+ 4. In the same file, further down the code you will find the following line:
   
      `widgetDirs.push({ dir: path.join(paths.project,CONST.ALLOY_DIR) });`
      
@@ -145,7 +145,7 @@ We're done hacking the Titanium SDK. Notice that you will have to repeat these s
      Read my comments in the above script to learn more what each step does. And if you want to learn more about the `alloy.jdk` file you can read [this](http://docs.appcelerator.com/platform/latest/#!/guide/Build_Configuration_File_(alloy.jmk))     
 http://docs.appcelerator.com/platform/latest/#!/guide/Build_Configuration_File_(alloy.jmk)
 
-4. In your `app` directory, create 2 more files:
+  4. In your `app` directory, create 2 more files:
    ```
    touch app/alloy.jmk
    touch app/tsconfig.json
@@ -153,7 +153,7 @@ http://docs.appcelerator.com/platform/latest/#!/guide/Build_Configuration_File_(
    
    The first (`alloy.jmk`) will be to show a friendly error message if the SDK we're compiling with doesn't have our hack applied. And the second (`tsconfig.json`) if TypeScript's configuration file.
 
-5. Paste the following inside `app/alloy.jmk`:
+  5. Paste the following inside `app/alloy.jmk`:
    ```
    task("pre:compile", function (e, log) {
        log.info("Checking for TypeScript hack support in SDK...");
@@ -183,7 +183,7 @@ http://docs.appcelerator.com/platform/latest/#!/guide/Build_Configuration_File_(
    });
    ```
 
-6. Paste the following inside `app/tsconfig.json`:
+  6. Paste the following inside `app/tsconfig.json`:
    ```
    {
         "compilerOptions": {
