@@ -1,0 +1,26 @@
+task("pre:compile", function (e, log) {
+    log.info("Checking for TypeScript hack support in SDK...");
+    
+    var fs = require('fs'),
+        path = require('path');
+
+	var endsWith = function(str, suffix) {
+	    return str.indexOf(suffix, str.length - suffix.length) !== -1;
+	};
+	
+    if (endsWith(e.dir.home, '/app')) {
+    	var foundTsConfig = false;
+    	try {
+    		var tsConfig = e.dir.home.replace('/app', '/app/tsconfig.json');
+    		fs.accessSync(tsConfig, fs.F_OK);
+    		foundTsConfig = true;
+    	}
+    	catch (e) {}
+    	
+    	if (foundTsConfig) {
+    		var msg = 'This project requires the TypeScript hack in Titnaium SDK';
+    		log.error(msg);
+    		throw msg;
+    	}
+    }
+});

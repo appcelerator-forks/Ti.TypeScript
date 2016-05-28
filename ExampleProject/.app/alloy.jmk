@@ -1,0 +1,37 @@
+task("pre:compile", function (e, log) {
+    var fs = require('fs'),
+        path = require('path'),
+        exec = require('child_process').execSync;
+
+	var endsWith = function(str, suffix) {
+	    return str.indexOf(suffix, str.length - suffix.length) !== -1;
+	};
+	
+    var scrRoot = e.dir.home.replace('/.app', '/app');
+
+    // TypeScript everything
+    if (endsWith(e.dir.home, '.app')) {
+        log.info("TypeScript transpiler started");
+        
+        // First of all, erase previous compilation but alloy.jmk (this file)
+        exec('find ' + e.dir.home +
+            ' ! -name "alloy.jmk"' +
+            ' -type f -delete');
+        
+        // And copy the current app into the future app folder for Alloy
+        exec("rsync -avr --exclude='tsconfig.json' --exclude='alloy.jmk' " + scrRoot + "/* " + e.dir.home);
+        
+        // Remove TypeScript files
+        exec('find ' + e.dir.home + ' -name "*.ts" -delete');
+
+        // And finally, transcompile with TypeScript
+        try {
+            exec('tsc --allowJs -p ' + scrRoot + ' --outDir ' + e.dir.home);
+        }
+        catch(e) {
+            log.warn(e);
+        }
+        
+        log.info("TypeScript transpiler completed!");
+    }
+});
