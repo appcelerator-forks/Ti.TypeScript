@@ -186,7 +186,7 @@ http://docs.appcelerator.com/platform/latest/#!/guide/Build_Configuration_File_(
   6. Paste the following inside `app/tsconfig.json`:
    ```
    {
-   	"compileOnSave": false,
+        "compileOnSave": false,
         "compilerOptions": {
             "module": "commonjs",
             "target": "es5",
